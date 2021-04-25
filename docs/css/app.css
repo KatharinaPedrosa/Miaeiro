@@ -331,3 +331,8 @@ progress {
 .logo{
     width:50px;
 }
+
+.mensagem{
+    width:350px;
+    text-align:center;
+}

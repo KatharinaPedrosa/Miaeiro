@@ -1,21 +1,38 @@
 ﻿@page "/"
 @inherits IndexBase
 
-<div class="container graficos">
+@if (ControleFincanceiroService.Transacoes.Any())
+{
+    <div class="container graficos">
 
-    <div class="grafico-total">
-        <Chart Config="@ConfigTotal" />
+        <div class="grafico-total">
+            <Chart Config="@ConfigTotal" />
+        </div>
+
+        <div class="grafico-parcial">
+            <Chart Config="@ConfigEntrada" />
+        </div>
+
+        <div class="grafico-parcial">
+            <Chart Config="@ConfigGasto" />
+        </div>
     </div>
 
-    <div class="grafico-parcial">
-        <Chart Config="@ConfigEntrada" />
+    <div class="principal  mt-5">
+        <ListaTransacoes></ListaTransacoes>
+    </div>
+}
+else
+{
+    <div class="container d-flex flex-row justify-content-center mt-5">
+        <div class="card flex-column mensagem">
+            <div class="m-2">
+                <p>Favor inserir dados de entradas e saídas</p>
+            </div>
+            <div class="m-2">
+                <p><a href="/entradas">Clique aqui para incluir uma entrada</a> ou escolha uma opção no menu.</p>
+            </div>
+        </div>
     </div>
 
-    <div class="grafico-parcial">
-        <Chart Config="@ConfigGasto" />
-    </div>
-</div>
-
-<div class="principal mt-5">
-    <ListaTransacoes></ListaTransacoes>
-</div>
+}
