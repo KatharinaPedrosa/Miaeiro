@@ -1,0 +1,61 @@
+﻿@inherits ListaTransacoesBase
+
+<div class="lista flex-column justify-content-center">
+    <div class="row cabecalho">
+        <div class="col-3">
+            Data
+        </div>
+        <div class="col-3">
+            Origem
+        </div>
+        <div class="col-3">
+            Descrição
+        </div>
+        <div class="col-2 coluna-numerica">
+            Valor
+        </div>
+        <div class="col-1 ">
+        </div>
+    </div>
+    @foreach (var item in ControleFinanceiroService.Transacoes.Where(t => t.Data.Month == DateTime.Now.Month).OrderBy(item => item.Data))
+    {
+        <div class="row @(ControleFinanceiroService.Transacoes.IndexOf(item)%2==0?"cor-sim":"cor-nao") @(item.Tipo==TipoTransacao.saida?"item-saida":"")">
+            <div class="col-3">
+                @item.Data.ToShortDateString()
+            </div>
+            <div class="col-3">
+                @item.Origem
+            </div>
+            <div class="col-3">
+                @item.Descricao
+            </div>
+            <div class="col-2 coluna-numerica">
+                @if (item.Tipo == TipoTransacao.entrada)
+                {
+                    <p>R$ @item.Valor</p>
+                }
+                else
+                {
+                    <p>- R$ @item.Valor</p>
+                }
+            </div>
+            <div class="col-1 botao-excluir">
+                <i class="oi oi-x pointer-event" @onclick="() => Excluir(item)"></i>
+            </div>
+        </div>
+    }
+    <div class="row font-weight-bold cabecalho">
+        <div class="col-3">
+        </div>
+        <div class="col-3">
+        </div>
+        <div class="col-3">
+            Total
+        </div>
+        <div class="col-2 coluna-numerica">
+            R$ @ControleFinanceiroService.Transacoes.Where(t => t.Data.Month == DateTime.Now.Month).Sum(item => item.Tipo == TipoTransacao.entrada ? item.Valor : item.Valor * -1)
+        </div>
+        <div class="col-1 ">
+        </div>
+    </div>
+</div>

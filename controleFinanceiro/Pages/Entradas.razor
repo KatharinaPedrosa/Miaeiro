@@ -1,0 +1,43 @@
+﻿@page "/entradas"
+@inherits EntradasBase
+
+<div class="container principal">
+    <Botao Texto="Salário" Icone="Icone.Salario" Acao="adicionarSalario" Selecionado='() => transacao.Origem == "Salário"' />
+
+    <Botao Texto="Renda Extra" Icone="Icone.RendaExtra" Acao="adicionarExtra" Selecionado='() => transacao.Origem == "Extra"' />
+</div>
+
+@if (exibirForm)
+{
+    <div class="principal mt-5">
+        <EditForm Model="transacao" class="formulario">
+            <div class="row mt-2">
+                <InputDate @bind-Value="transacao.Data" placeholder="Data" class="w-100"></InputDate>
+            </div>
+            <div class="row mt-2">
+                <InputText @bind-Value="transacao.Descricao" placeholder="Descrição" class="w-100"></InputText>
+            </div>
+            <div class="row mt-2">
+
+                <InputNumber @bind-Value="transacao.Valor" class="valor-numerico"></InputNumber>
+            </div>
+            <div class="row mt-2 grupo-valores">
+                <span class="ml-2 adicionar-valor" @onclick="() => adicionar(1)">+ R$ 1</span>
+                <span class="ml-2 adicionar-valor" @onclick="() => adicionar(5)">+ R$ 5</span>
+                <span class="ml-2 adicionar-valor" @onclick="() => adicionar(10)">+ R$ 10</span>
+                <span class="ml-2 adicionar-valor" @onclick="() => adicionar(50)">+ R$ 50</span>
+                <span class="ml-2 adicionar-valor" @onclick="() => adicionar(100)">+ R$ 100</span>
+            </div>
+            <div class="row mt-2 flex-row justify-content-end">
+                <div class="card comando-botao" @onclick="confirmar">
+                    <h5 class="mt-2">Confirmar</h5>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+
+}
+
+<div class="principal mt-5">
+    <ListaTransacoes @ref="lista"></ListaTransacoes>
+</div>

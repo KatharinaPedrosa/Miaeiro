@@ -1,0 +1,43 @@
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    <img src="/images/icon.svg" class="logo" />
+    <a class="navbar-brand" href="">Miaeiro</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-pie-chart" aria-hidden="true"></span> Início
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="entradas">
+                <span class="oi oi-arrow-top" aria-hidden="true"></span> Entradas
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="saidas">
+                <span class="oi oi-arrow-bottom" aria-hidden="true"></span> Saídas
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="metas">
+                <span class="oi oi-target" aria-hidden="true"></span> Metas
+            </NavLink>
+        </li>
+    </ul>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

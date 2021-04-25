@@ -1,0 +1,39 @@
+﻿@inherits BotaoBase
+
+<div class="card comando @(Selecionado() ? "comando-selecionado":"" )" @onclick="Acao">
+    <div class="my-auto comando-icone">
+        @switch (Icone)
+        {
+            case Icone.Mais:
+                <i class="oi oi-plus"></i>
+                break;
+            case Icone.Menos:
+                <i class="oi oi-minus"></i>
+                break;
+            case Icone.Salario:
+                <i class="oi oi-dollar"></i>
+                break;
+            case Icone.RendaExtra:
+                <i class="oi oi-plus"></i>
+                break;
+            case Icone.Conta:
+                <i class="oi oi-loop-square"></i>
+                break;
+            case Icone.Compra:
+                <i class="oi oi-cart"></i>
+                break;
+            case Icone.GastoExtra:
+                <i class="oi oi-credit-card"></i>
+                break;
+            case Icone.Confirmar:
+                <i class="oi oi-check"></i>
+                break;
+            case Icone.Meta:
+                <i class="oi oi-calendar"></i>
+                break;
+            default:
+                break;
+        }
+    </div>
+    <h5 class="mt-2">@Texto</h5>
+</div>

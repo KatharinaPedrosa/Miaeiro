@@ -1,0 +1,68 @@
+﻿@inherits ListaMetasBase
+
+<div class="lista flex-column justify-content-center">
+    <div class="row cabecalho">
+        <div class="col-3">
+            Data
+        </div>
+        <div class="col-3">
+            Tipo
+        </div>
+        <div class="col-3">
+            Descrição
+        </div>
+        <div class="col-2 coluna-numerica">
+            Valor
+        </div>
+        <div class="col-1 ">
+        </div>
+    </div>
+    @foreach (var item in ControleFinanceiroService.Metas.OrderBy(item => item.DataInicio))
+    {
+        <div class="row @(ControleFinanceiroService.Metas.IndexOf(item)%2==0?"cor-sim":"cor-nao")">
+            <div class="col-3">
+                @item.DataInicio.ToShortDateString() até @item.Data.ToShortDateString()
+            </div>
+            <div class="col-3">
+                @switch (item.Tipo)
+                {
+                    case TipoMeta.CurtoPrazo:
+                        <p>Curto Prazo</p>
+                        break;
+                    case TipoMeta.MedioPrazo:
+                        <p>Médio Prazo</p>
+                        break;
+                    case TipoMeta.LongoPrazo:
+                        <p>Longo Prazo</p>
+                        break;
+                }
+            </div>
+            <div class="col-3">
+                @item.Descricao
+            </div>
+            <div class="col-2 coluna-numerica">
+                <p>R$ @((item.Valor/item.TotalMeses) * item.MesesAtuais) de R$ @item.Valor</p>
+            </div>
+            <div class="col-1 botao-excluir">
+                <i class="oi oi-x pointer-event" @onclick="() => Excluir(item)"></i>
+            </div>
+        </div>
+        <div class="row @(ControleFinanceiroService.Metas.IndexOf(item)%2==0?"cor-sim":"cor-nao")">
+            <progress max="100" value="@((int)item.Progresso)" class="w-100">@((int)item.Progresso)%</progress>
+        </div>
+    }
+    <div class="row font-weight-bold cabecalho">
+        <div class="col-3">
+        </div>
+        <div class="col-3">
+        </div>
+        <div class="col-3">
+            Total
+        </div>
+        <div class="col-2 coluna-numerica">
+            R$ @ControleFinanceiroService.Metas.Sum(item => (item.Valor / item.TotalMeses) * item.MesesAtuais)
+        </div>
+        <div class="col-1 ">
+        </div>
+    </div>
+</div>

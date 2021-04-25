@@ -1,0 +1,63 @@
+﻿@page "/metas"
+@inherits MetasBase
+
+<div class="container principal">
+    <Botao Texto="Curto Prazo" Icone="Icone.Meta" Acao="() => AdicionarMeta(TipoMeta.CurtoPrazo)" Selecionado='() => meta.Tipo == TipoMeta.CurtoPrazo' />
+    <Botao Texto="Médio Prazo" Icone="Icone.Meta" Acao="() => AdicionarMeta(TipoMeta.MedioPrazo)" Selecionado='() => meta.Tipo == TipoMeta.MedioPrazo' />
+    <Botao Texto="Longo Prazo" Icone="Icone.Meta" Acao="() => AdicionarMeta(TipoMeta.LongoPrazo)" Selecionado='() => meta.Tipo == TipoMeta.LongoPrazo' />
+</div>
+
+@if (exibirForm)
+{
+    <div class="principal mt-5">
+        <EditForm Model="meta" class="formulario">
+            <div class="row mt-2">
+                <label>Data Início</label>
+            </div>
+            <div class="row">
+                <InputDate @bind-Value="meta.DataInicio" placeholder="Data Início" class="w-100"></InputDate>
+            </div>
+            <div class="row mt-2 grupo-valores">
+                <span class="ml-2 adicionar-valor" @onclick="() => meta.DataInicio = meta.DataInicio.AddDays(1)">+ 1 dia</span>
+                <span class="ml-2 adicionar-valor" @onclick="() => meta.DataInicio = meta.DataInicio.AddMonths(1)">+ 1 mês</span>
+                <span class="ml-2 adicionar-valor" @onclick="() => meta.DataInicio = meta.DataInicio.AddYears(1)">+ 1 ano</span>
+            </div>
+
+            <div class="row mt-2">
+                <label>Data Fim</label>
+            </div>
+            <div class="row">
+                <InputDate @bind-Value="meta.Data" placeholder="Data Meta" class="w-100"></InputDate>
+            </div>
+            <div class="row mt-2 grupo-valores">
+                <span class="ml-2 adicionar-valor" @onclick="() => meta.Data = meta.Data.AddDays(1)">+ 1 dia</span>
+                <span class="ml-2 adicionar-valor" @onclick="() => meta.Data = meta.Data.AddMonths(1)">+ 1 mês</span>
+                <span class="ml-2 adicionar-valor" @onclick="() => meta.Data = meta.Data.AddYears(1)">+ 1 ano</span>
+            </div>
+
+            <div class="row mt-2">
+                <InputText @bind-Value="meta.Descricao" placeholder="Descrição" class="w-100"></InputText>
+            </div>
+            <div class="row mt-2">
+
+                <InputNumber @bind-Value="meta.Valor" class="valor-numerico"></InputNumber>
+            </div>
+            <div class="row mt-2 grupo-valores">
+                <span class="ml-2 adicionar-valor" @onclick="() => meta.Valor+=1">+ R$ 1</span>
+                <span class="ml-2 adicionar-valor" @onclick="() => meta.Valor+=5">+ R$ 5</span>
+                <span class="ml-2 adicionar-valor" @onclick="() => meta.Valor+=10">+ R$ 10</span>
+                <span class="ml-2 adicionar-valor" @onclick="() => meta.Valor+=50">+ R$ 50</span>
+                <span class="ml-2 adicionar-valor" @onclick="() => meta.Valor+=100">+ R$ 100</span>
+            </div>
+            <div class="row mt-2 flex-row justify-content-end">
+                <div class="card comando-botao" @onclick="confirmar">
+                    <h5 class="mt-2">Confirmar</h5>
+                </div>
+            </div>
+        </EditForm>
+    </div>
+}
+
+<div class="principal mt-5">
+    <ListaMetas @ref="lista"></ListaMetas>
+</div>
